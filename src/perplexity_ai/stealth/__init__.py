@@ -1,7 +1,5 @@
-"""
-Stealth techniques for Cloudflare bypass
-"""
+"""Stealth mode utilities."""
 
-from perplexity_ai.stealth.headers import HeaderGenerator
+from .fingerprint import BrowserFingerprint, ScreenInfo, WebGLInfo
 
-__all__ = ["HeaderGenerator"]
+__all__ = ['BrowserFingerprint', 'ScreenInfo', 'WebGLInfo']
