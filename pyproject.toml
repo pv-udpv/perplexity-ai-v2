@@ -1,47 +1,62 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "perplexity-ai-v2"
-version = "2.0.0"
-description = "Comprehensive Perplexity AI API Client with full endpoint coverage"
-authors = [{name = "pv-udpv"}]
-requires-python = ">=3.12"
+version = "0.2.0"
+description = "Comprehensive unofficial Perplexity AI API client with full endpoint coverage"
 readme = "README.md"
+requires-python = ">=3.12"
 license = {text = "MIT"}
+authors = [
+    {name = "pv-udpv", email = "pv@udpv.dev"}
+]
+keywords = ["perplexity", "ai", "api", "client", "curl-cffi", "cloudflare"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
 dependencies = [
     "curl-cffi>=0.7.0",
-    "pydantic>=2.10",
-    "pydantic-settings>=2.7",
-    "httpx>=0.28",
-    "orjson>=3.10",
-    "rich>=13.9",
-    "typer>=0.15",
-    "python-dotenv>=1.0",
-    "typing-extensions>=4.12",
+    "pydantic>=2.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.3",
-    "pytest-asyncio>=0.24",
-    "pytest-cov>=6.0",
-    "mypy>=1.14",
-    "ruff>=0.8",
-    "ipython>=8.30",
+    "pytest>=7.4",
+    "pytest-asyncio>=0.21",
+    "mypy>=1.5",
+    "ruff>=0.1.0",
+    "black>=23.0",
+]
+research = [
+    "playwright>=1.40",
+    "aiohttp>=3.9",
 ]
 
+[project.urls]
+Homepage = "https://github.com/pv-udpv/perplexity-ai-v2"
+Documentation = "https://github.com/pv-udpv/perplexity-ai-v2#readme"
+Repository = "https://github.com/pv-udpv/perplexity-ai-v2"
+Issues = "https://github.com/pv-udpv/perplexity-ai-v2/issues"
+
 [project.scripts]
-pplx = "perplexity_ai.cli.main:app"
+pplx-ask = "tools.perplexity_curl_client:main"
+pplx-daemon = "tools.browser_daemon:main"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+[tool.setuptools.packages.find]
+where = ["src"]
 
-[tool.ruff]
-line-length = 100
-target-version = "py312"
-
-[tool.ruff.lint]
-select = ["E", "F", "I", "N", "W", "UP"]
-ignore = ["E501"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
 
 [tool.mypy]
 python_version = "3.12"
@@ -49,7 +64,11 @@ strict = true
 warn_return_any = true
 warn_unused_configs = true
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]
-asyncio_mode = "auto"
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.black]
+target-version = ["py312"]
+line-length = 100
