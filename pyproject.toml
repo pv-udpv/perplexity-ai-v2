@@ -1,0 +1,55 @@
+[project]
+name = "perplexity-ai-v2"
+version = "2.0.0"
+description = "Comprehensive Perplexity AI API Client with full endpoint coverage"
+authors = [{name = "pv-udpv"}]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = [
+    "curl-cffi>=0.7.0",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.7",
+    "httpx>=0.28",
+    "orjson>=3.10",
+    "rich>=13.9",
+    "typer>=0.15",
+    "python-dotenv>=1.0",
+    "typing-extensions>=4.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "mypy>=1.14",
+    "ruff>=0.8",
+    "ipython>=8.30",
+]
+
+[project.scripts]
+pplx = "perplexity_ai.cli.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
